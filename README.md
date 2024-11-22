@@ -1,4 +1,9 @@
 # Machine renting assessment
+
+## Repository
+
+[Machine Renting Assessment](https://github.com/daguttt/machine_renting_assessment)
+
 ## Description
 
 System that helps to manage the renting of machines.
@@ -18,4 +23,5 @@ System that helps to manage the renting of machines.
 4. Run again the `main` function.
 
 ## Relational Model
-...
+
+![img.png](images/relational-model.png)
