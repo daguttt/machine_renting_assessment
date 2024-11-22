@@ -1,4 +1,7 @@
 # Machine renting assessment
+## Description
+
+System that helps to manage the renting of machines.
 
 ## Steps to run the project
 1. From the `resources/` folder, copy the SQL in the `db.sql` file to set up the database.
