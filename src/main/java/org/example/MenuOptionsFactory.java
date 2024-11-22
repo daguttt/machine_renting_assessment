@@ -27,6 +27,7 @@ public class MenuOptionsFactory {
                 new MenuOption("Registrar maquina", new RegisterMachineCommand(this.machinesController)),
                 new MenuOption("Listar maquinas", new ListMachinesCommand(this.machinesController)),
                 new MenuOption("Registrar alquiler", new RegisterMachineRentingCommand(this.machinesController, this.rentingsController, this.clientsController)),
+                new MenuOption("Listar alquileres", new ListRentingsCommand(this.rentingsController)),
                 new MenuOption("Salir", new CloseCommand())
         );
     }

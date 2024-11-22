@@ -52,6 +52,14 @@ public class Machine {
         this.status = status;
     }
 
+    public void setModel(String model) {
+        this.model = model;
+    }
+
+    public void setSerialNumber(String serialNumber) {
+        this.serialNumber = serialNumber;
+    }
+
     @Override
     public String toString() {
         return String.format("%d - %s - %s - %s", id, model, serialNumber, status.name());

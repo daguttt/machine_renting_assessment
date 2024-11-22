@@ -48,6 +48,14 @@ public class Client {
         this.id = id;
     }
 
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
     @Override
     public String toString() {
         return String.format("%d - %s - %s - %s - %s", id, fullName, email, phoneNumber, address);
