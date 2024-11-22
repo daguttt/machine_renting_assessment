@@ -41,4 +41,10 @@ public class Client {
     public String getAddress() {
         return address;
     }
+
+    // Setters
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 }

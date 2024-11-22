@@ -1,5 +1,7 @@
 package org.example;
 
+import org.example.controllers.ClientsController;
+import org.example.models.ClientsModel;
 import org.example.persistence.Database;
 
 public class Main {
@@ -20,15 +22,17 @@ public class Main {
         database.testConnection();
 
         // Models
+        var clientsModel = new ClientsModel(database);
 
 
         // Controller
+        var clientsController = new ClientsController(clientsModel);
 
 
         // -****************************
 
         // Menu
-        var menuOptionsFactory = new MenuOptionsFactory();
+        var menuOptionsFactory = new MenuOptionsFactory(clientsController);
         Menu adminMenu = new Menu(menuOptionsFactory.getAdminMenuCommands());
         adminMenu.open();
     }
