@@ -5,7 +5,7 @@ import org.example.commands.interfaces.MenuCommand;
 
 import javax.swing.*;
 
-public class CloseAllCommand implements MenuCommand {
+public class CloseCommand implements MenuCommand {
     @Override
     public void execute(Menu menu) {
         menu.close();
