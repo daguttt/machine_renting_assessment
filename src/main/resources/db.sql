@@ -7,7 +7,7 @@ USE machine_renting;
 CREATE TABLE clients (
     id INT AUTO_INCREMENT PRIMARY KEY,
     full_name VARCHAR(255) NOT NULL,
-    email VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL UNIQUE,
     phone_number VARCHAR(20) NOT NULL,
     address VARCHAR(255) NOT NULL
 );
