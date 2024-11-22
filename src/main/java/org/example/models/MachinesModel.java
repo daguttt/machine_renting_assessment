@@ -1,6 +1,7 @@
 package org.example.models;
 
 import org.example.MySQLErrorCodes;
+import org.example.entities.Client;
 import org.example.entities.Machine;
 import org.example.enums.MachineStatus;
 import org.example.exceptions.CouldnCreateMachineException;
@@ -9,6 +10,8 @@ import org.example.persistence.Database;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 public class MachinesModel {
@@ -78,5 +81,59 @@ public class MachinesModel {
             throw new RuntimeException(e);
         }
 
+    }
+
+    public int count() {
+        var sql = """
+                SELECT COUNT(*) as machines_count FROM machines;
+                """;
+        int machinesCount = 0;
+        try (
+                var con = database.openConnection();
+                var statement = con.createStatement()
+        ) {
+            var result = statement.executeQuery(sql);
+            if (result.next()) {
+                machinesCount = result.getInt("machines_count");
+            }
+            result.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return machinesCount;
+    }
+
+    public List<Machine> findAll(int page, int pageSize) {
+        var sql = """
+                SELECT * FROM machines LIMIT ? OFFSET ?;
+                """;
+
+        var machineList = new ArrayList<Machine>();
+
+        try (
+                var connection = database.openConnection();
+                var statement = connection.prepareStatement(sql))
+        {
+
+            statement.setInt(1, pageSize);
+            statement.setInt(2, (page - 1) * pageSize);
+            var resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                var id = resultSet.getLong("id");
+                var model = resultSet.getString("model");
+                var serial_number = resultSet.getString("serial_number");
+                var status = resultSet.getString("status");
+
+                var machine = new Machine(id, model, serial_number, MachineStatus.valueOf(status));
+                machineList.add(machine);
+            }
+            resultSet.close();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return machineList.stream().toList();
     }
 }

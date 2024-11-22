@@ -1,9 +1,6 @@
 package org.example;
 
-import org.example.commands.CloseCommand;
-import org.example.commands.ListClientsCommand;
-import org.example.commands.RegisterClientCommand;
-import org.example.commands.RegisterMachineCommand;
+import org.example.commands.*;
 import org.example.controllers.ClientsController;
 import org.example.controllers.MachinesController;
 
@@ -25,6 +22,7 @@ public class MenuOptionsFactory {
                 new MenuOption("Registrar Cliente", new RegisterClientCommand(this.clientsController)),
                 new MenuOption("Listar Clientes", new ListClientsCommand(this.clientsController)),
                 new MenuOption("Registrar maquina", new RegisterMachineCommand(this.machinesController)),
+                new MenuOption("Listar maquinas", new ListMachinesCommand(this.machinesController)),
                 new MenuOption("Salir", new CloseCommand())
         );
     }
