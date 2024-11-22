@@ -7,6 +7,8 @@ import org.example.persistence.Database;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 public class ClientsModel {
@@ -18,7 +20,7 @@ public class ClientsModel {
 
     public Optional<Client> findOneByEmail(String email) {
         var sql = """
-                SELECT * FROM clients WHERE email = ? LIMIT 1
+                SELECT * FROM clients WHERE email = ? LIMIT 1;
                 """;
         Client client = null;
         try (
@@ -77,5 +79,38 @@ public class ClientsModel {
             throw new RuntimeException(e);
         }
 
+    }
+
+    public List<Client> findAll() {
+        var sql = """
+                SELECT * FROM clients;
+                """;
+
+        var clientsList = new ArrayList<Client>();
+
+        try (
+                var connection = database.openConnection();
+                var statement = connection.createStatement())
+        {
+
+            var resultSet = statement.executeQuery(sql);
+
+            while (resultSet.next()) {
+                var id = resultSet.getLong("id");
+                var fullName = resultSet.getString("full_name");
+                var email = resultSet.getString("email");
+                var phoneNumber = resultSet.getString("phone_number");
+                var address = resultSet.getString("address");
+
+                var client = new Client(id, fullName, email, phoneNumber, address);
+                clientsList.add(client);
+            }
+            resultSet.close();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return clientsList.stream().toList();
     }
 }

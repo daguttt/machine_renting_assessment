@@ -47,4 +47,9 @@ public class Client {
     public void setId(Long id) {
         this.id = id;
     }
+
+    @Override
+    public String toString() {
+        return String.format("%d - %s - %s - %s - %s", id, fullName, email, phoneNumber, address);
+    }
 }

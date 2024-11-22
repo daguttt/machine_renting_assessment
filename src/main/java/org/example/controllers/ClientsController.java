@@ -3,6 +3,7 @@ package org.example.controllers;
 import org.example.entities.Client;
 import org.example.models.ClientsModel;
 
+import java.util.List;
 import java.util.Optional;
 
 public class ClientsController {
@@ -18,5 +19,9 @@ public class ClientsController {
 
     public Client create(Client baseClient) {
         return this.clientsModel.create(baseClient);
+    }
+
+    public List<Client> findAll() {
+        return this.clientsModel.findAll();
     }
 }

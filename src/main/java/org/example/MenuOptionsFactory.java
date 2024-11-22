@@ -1,6 +1,7 @@
 package org.example;
 
 import org.example.commands.CloseCommand;
+import org.example.commands.ListClientsCommand;
 import org.example.commands.RegisterClientCommand;
 import org.example.controllers.ClientsController;
 
@@ -18,6 +19,7 @@ public class MenuOptionsFactory {
     public List<MenuOption> getAdminMenuCommands() {
         return List.of(
                 new MenuOption("Registrar Cliente", new RegisterClientCommand(clientsController)),
+                new MenuOption("Listar Clientes", new ListClientsCommand(clientsController)),
                 new MenuOption("Salir", new CloseCommand())
         );
     }
