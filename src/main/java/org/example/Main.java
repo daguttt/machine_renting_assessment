@@ -2,8 +2,10 @@ package org.example;
 
 import org.example.controllers.ClientsController;
 import org.example.controllers.MachinesController;
+import org.example.controllers.RentingsController;
 import org.example.models.ClientsModel;
 import org.example.models.MachinesModel;
+import org.example.models.RentingsModel;
 import org.example.persistence.Database;
 
 public class Main {
@@ -26,11 +28,13 @@ public class Main {
         // Models
         var clientsModel = new ClientsModel(database);
         var machinesModel = new MachinesModel(database);
+        var rentingsModel = new RentingsModel(database);
 
 
         // Controller
         var clientsController = new ClientsController(clientsModel);
         var machinesController = new MachinesController(machinesModel);
+        var rentingsController = new RentingsController(rentingsModel);
 
 
         // -****************************
@@ -38,7 +42,8 @@ public class Main {
         // Menu
         var menuOptionsFactory = new MenuOptionsFactory(
                 clientsController,
-                machinesController
+                machinesController,
+                rentingsController
         );
         Menu adminMenu = new Menu(menuOptionsFactory.getAdminMenuCommands());
         adminMenu.open();

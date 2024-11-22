@@ -1,26 +1,26 @@
 package org.example.entities;
 
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
 
 public class Renting {
     private Long id;
     private Client client;
     private Machine machine;
-    private LocalDateTime startDate;
-    private LocalDateTime disabledDate;
+    private Timestamp startingDate;
+    private Timestamp disabledDate;
 
     public Renting() {
     }
 
-    public Renting(Client client, Machine machine, LocalDateTime startDate, LocalDateTime disabledDate) {
-        this(null, client, machine, startDate, disabledDate);
+    public Renting(Client client, Machine machine, Timestamp startingDate, Timestamp disabledDate) {
+        this(null, client, machine, startingDate, disabledDate);
     }
 
-    public Renting(Long id, Client client, Machine machine, LocalDateTime startDate, LocalDateTime disabledDate) {
+    public Renting(Long id, Client client, Machine machine, Timestamp startingDate, Timestamp disabledDate) {
         this.id = id;
         this.client = client;
         this.machine = machine;
-        this.startDate = startDate;
+        this.startingDate = startingDate;
         this.disabledDate = disabledDate;
     }
 
@@ -36,11 +36,21 @@ public class Renting {
         return machine;
     }
 
-    public LocalDateTime getStartDate() {
-        return startDate;
+    public Timestamp getStartingDate() {
+        return startingDate;
     }
 
-    public LocalDateTime getDisabledDate() {
+    public Timestamp getDisabledDate() {
         return disabledDate;
+    }
+
+    // Setters
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setDisabledDate(Timestamp disabledDate) {
+        this.disabledDate = disabledDate;
     }
 }

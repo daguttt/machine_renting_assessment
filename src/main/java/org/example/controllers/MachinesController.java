@@ -29,4 +29,12 @@ public class MachinesController {
     public List<Machine> findAll(int page, int pageSize) {
         return this.machinesModel.findAll(page, pageSize);
     }
+
+    public List<Machine> findAllActive() {
+        return this.machinesModel.findAllActive();
+    }
+
+    public boolean update(Machine machineToUpdate) {
+        return this.machinesModel.update(machineToUpdate);
+    }
 }

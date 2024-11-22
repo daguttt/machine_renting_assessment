@@ -48,6 +48,10 @@ public class Machine {
         this.id = id;
     }
 
+    public void setStatus(MachineStatus status) {
+        this.status = status;
+    }
+
     @Override
     public String toString() {
         return String.format("%d - %s - %s - %s", id, model, serialNumber, status.name());

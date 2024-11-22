@@ -1,11 +1,9 @@
 package org.example.models;
 
 import org.example.MySQLErrorCodes;
-import org.example.entities.Client;
 import org.example.entities.Machine;
 import org.example.enums.MachineStatus;
 import org.example.exceptions.CouldnCreateMachineException;
-import org.example.exceptions.CouldntCreateClientException;
 import org.example.persistence.Database;
 
 import java.sql.PreparedStatement;
@@ -107,7 +105,6 @@ public class MachinesModel {
         var sql = """
                 SELECT * FROM machines LIMIT ? OFFSET ?;
                 """;
-
         var machineList = new ArrayList<Machine>();
 
         try (
@@ -135,5 +132,64 @@ public class MachinesModel {
         }
 
         return machineList.stream().toList();
+
+
+    }
+
+    public List<Machine> findAllActive() {
+        var sql = """
+                SELECT * FROM machines WHERE status = 'AVAILABLE';
+                """;
+        var machineList = new ArrayList<Machine>();
+
+        try (
+                var connection = database.openConnection();
+                var statement = connection.createStatement())
+        {
+
+            var resultSet = statement.executeQuery(sql);
+
+            while (resultSet.next()) {
+                var id = resultSet.getLong("id");
+                var model = resultSet.getString("model");
+                var serial_number = resultSet.getString("serial_number");
+                var status = resultSet.getString("status");
+
+                var machine = new Machine(id, model, serial_number, MachineStatus.valueOf(status));
+                machineList.add(machine);
+            }
+            resultSet.close();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return machineList.stream().toList();
+
+
+    }
+
+    public boolean update(Machine machineToUpdate) {
+        var sql = """
+                UPDATE LOW_PRIORITY machines\s
+                    SET\s
+                        model = ?,
+                        serial_number = ?,\s
+                        status = ?\s
+                    WHERE id = ?;
+                """;
+        try (
+                var connection = database.openConnection();
+                var statement = connection.prepareStatement(sql)
+        ) {
+            statement.setString(1, machineToUpdate.getModel());
+            statement.setString(2, machineToUpdate.getSerialNumber());
+            statement.setString(3, machineToUpdate.getStatus().name());
+            statement.setLong(4, machineToUpdate.getId());
+            var rowsAffected = statement.executeUpdate();
+            return rowsAffected > 0;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
