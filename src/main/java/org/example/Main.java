@@ -1,7 +1,9 @@
 package org.example;
 
 import org.example.controllers.ClientsController;
+import org.example.controllers.MachinesController;
 import org.example.models.ClientsModel;
+import org.example.models.MachinesModel;
 import org.example.persistence.Database;
 
 public class Main {
@@ -23,16 +25,21 @@ public class Main {
 
         // Models
         var clientsModel = new ClientsModel(database);
+        var machinesModel = new MachinesModel(database);
 
 
         // Controller
         var clientsController = new ClientsController(clientsModel);
+        var machinesController = new MachinesController(machinesModel);
 
 
         // -****************************
 
         // Menu
-        var menuOptionsFactory = new MenuOptionsFactory(clientsController);
+        var menuOptionsFactory = new MenuOptionsFactory(
+                clientsController,
+                machinesController
+        );
         Menu adminMenu = new Menu(menuOptionsFactory.getAdminMenuCommands());
         adminMenu.open();
     }

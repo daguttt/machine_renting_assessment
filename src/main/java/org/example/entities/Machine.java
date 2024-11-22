@@ -11,6 +11,10 @@ public class Machine {
     public Machine() {
     }
 
+    public Machine(String model, String serialNumber) {
+        this(null, model, serialNumber, MachineStatus.AVAILABLE);
+    }
+
     public Machine(String model, String serialNumber, MachineStatus status) {
         this(null, model, serialNumber, status);
     }
@@ -36,5 +40,11 @@ public class Machine {
 
     public MachineStatus getStatus() {
         return status;
+    }
+
+    // Setters
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }
